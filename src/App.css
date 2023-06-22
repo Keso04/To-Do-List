@@ -1,38 +1,138 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background: linear-gradient(
+    90deg,
+    rgb(174, 145, 194) 0%,
+    rgb(155, 121, 184) 100%
+  );
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p{
+  color: white;
+  text-indent: 15px;
+  display: block;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 17px;
 }
 
-.App-header {
+.to-do{
+  border: 2px solid rgb(0, 0, 0);
+  max-width: 400px;
+  margin: 25px 200px;
+  padding: 15px;
+  display: inline-block;
+  background-repeat: repeat-x;
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 150vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.done{
+  border: 2px solid rgb(0, 0, 0);
+  max-width: 400px;
+  margin-top: 0.7cqb;
+  position: absolute;
+  top: 20px;
+  right: 250px;
+  padding: 180px;
+  background-color: #282c34;
+  min-height: 150vh;
+  flex-direction: column;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.to-do-header{
+  text-align: center;
+  color: rgb(221, 221, 221);
+  font-size: 40px;
+  margin-bottom: 5%;
+}
+
+.done-header{
+  text-align: center;
+  color: rgb(221, 221, 221);
+  font-size: 40px;
+  margin-bottom: 5%;
+  padding: 10px;
+  position: absolute;
+  right: 120px;
+  top: 8px;
+}
+
+.myInput{
+  background-color: white;
+  width: 100%;
+  padding: 7px 8px;
+  margin: 5px 0;
+  border: 2px solid rgb(218, 130, 206);
+  border-radius: 6px;
+}
+
+.mybtn{
+  padding: 10px;
+  border: none;
+  margin-top: 0.7%;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgb(140, 98, 223) 0%,
+    rgb(105, 12, 163) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 15px;
+}
+
+.topics_raw{
+  padding: 8px;
+  margin-bottom: 13px;
+  border: 1px solid rgb(216, 204, 204);
+  border-radius: 15px;
+  width: 230px;
+  margin: 1em auto;
+  position:relative;
+  bottom: 750px;
+  right: 343px;
+}
+
+.removebtn{
+  padding: 3px;
+  border: none;
+  margin-top: 5%;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    rgb(140, 98, 223) 0%,
+    rgb(105, 12, 163) 100%
+  );
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 15px;
+  margin-right: 5%;
+}
+
+.topics_raw2{
+  padding: 8px;
+  margin-bottom: 13px;
+  border: 1px solid rgb(216, 204, 204);
+  border-radius: 15px;
+  width: 355px;
+  margin: 1em auto;
+  position:relative;
+  bottom: 100px;
+  right: 160px;
 }
