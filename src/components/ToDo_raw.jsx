@@ -27,6 +27,8 @@ class ToDo_raw extends Component{
       toDo: [...this.state.toDo, task],
       inputValue: ''
     })
+
+    // console.log(task);
   }
 
   removeTask = (id) => {
@@ -34,6 +36,8 @@ class ToDo_raw extends Component{
     this.setState({
       toDo: tasks
     })
+
+    // console.log("remove");
   }
 
   removeTaskFromDone = (id) => {
@@ -41,6 +45,8 @@ class ToDo_raw extends Component{
     this.setState({
       done: tasks
     })
+
+    // console.log("remove");
   }
 
   addToDoneTask = (id, value) => {
@@ -56,6 +62,7 @@ class ToDo_raw extends Component{
     })
 
     // console.log(doneTasks);
+    // console.log("done");
   }
 
   addToToDo = (id, value) => {
@@ -69,6 +76,11 @@ class ToDo_raw extends Component{
       done: tasks,
       toDo: [...this.state.toDo, moveToList]
     })
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    return !(JSON.stringify(this.state.toDo) === JSON.stringify(nextState.toDo) &&
+             JSON.stringify(this.state.done) === JSON.stringify(nextState.done))
   }
 
   render(){
