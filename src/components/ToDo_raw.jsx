@@ -1,124 +1,114 @@
-import React, { Component } from 'react'
+import { useCallback, useState } from "react";
 
-class ToDo_raw extends Component{
+const ToDo_raw = () => {
 
-  state = {
-    inputValue: '',
-    toDo: [{id: 1, value: "Go shopping"}, {id: 2, value: "Do my homework"}],
-    done: [{id: 0, value: "get ready for dinner"}]
-  }
+  // state = {
+  //   inputValue: '',
+  //   toDo: [{id: 1, value: "Go shopping"}, {id: 2, value: "Do my homework"}],
+  //   done: [{id: 0, value: "get ready for dinner"}]
+  // }
 
-  onChange = (event) => {
+  const [inputValue, setInputValue] = useState('');
+  const [toDo, setToDo] = useState([{id: 1, value: "Go shopping"}, {id: 2, value: "Do my homework"}]);
+  const [done, setDone] = useState([{id: 0, value: "get ready for dinner"}]);
+
+  const onChange = (event) => {
     const value = event.target.value;
-    this.setState({
-      inputValue: value
-    })
+    setInputValue(value);
   }
 
-  addTask = (event) => {
+  const addTask = useCallback((event) => {
     event.preventDefault();
 
     const task = {
-      id: this.state.toDo.length + 1,
-      value: this.state.inputValue
+      id: toDo.length + 1,
+      value: inputValue
     }
 
-    this.setState({
-      toDo: [...this.state.toDo, task],
-      inputValue: ''
-    })
+    setToDo((prevState) => [...prevState, task]);
+    setInputValue('');
 
     // console.log(task);
-  }
+  })
 
-  removeTask = (id) => {
-    const tasks = this.state.toDo.filter((task) => task.id !== id);
-    this.setState({
-      toDo: tasks
-    })
+  const removeTask = useCallback((id) => {
+    // const tasks = toDo.filter((task) => task.id !== id);
+    setToDo((prevState) => prevState.filter((task) => task.id !== id));
 
     // console.log("remove");
-  }
+  })
 
-  removeTaskFromDone = (id) => {
-    const tasks = this.state.done.filter((task) => task.id !== id);
-    this.setState({
-      done: tasks
-    })
+  const removeTaskFromDone = useCallback((id) => {
+    // const tasks = done.filter((task) => task.id !== id);
+    setDone((prevState) => prevState.filter((task) => task.id !== id));
 
     // console.log("remove");
-  }
+  })
 
-  addToDoneTask = (id, value) => {
-    const tasks = this.state.toDo.filter((task) => task.id !== id);
+  const addToDoneTask = useCallback((id, value) => {
+    // const tasks = toDo.filter((task) => task.id !== id);
     const doneTasks = {
       id: id,
       value: value
     }
 
-    this.setState({
-      toDo: tasks,
-      done: [...this.state.done, doneTasks]
-    })
+    setToDo((prevState) => prevState.filter((task) => task.id !== id));
+    setDone((prevState) => [...prevState, doneTasks])
 
     // console.log(doneTasks);
     // console.log("done");
-  }
+  })
 
-  addToToDo = (id, value) => {
-    const tasks = this.state.done.filter((task) => task.id !== id);
+  const addToToDo = useCallback((id, value) => {
+    // const tasks = done.filter((task) => task.id !== id);
     const moveToList = {
       id: id,
       value: value
     }
 
-    this.setState({
-      done: tasks,
-      toDo: [...this.state.toDo, moveToList]
-    })
-  }
+    setDone((prevState) => prevState.filter((task) => task.id !== id));
+    setToDo((prevState) => [...prevState, moveToList]);
+  })
 
-  shouldComponentUpdate(nextProps, nextState){
-    return !(JSON.stringify(this.state.toDo) === JSON.stringify(nextState.toDo) &&
-             JSON.stringify(this.state.done) === JSON.stringify(nextState.done))
-  }
+  // shouldComponentUpdate(nextProps, nextState){
+  //   return !(JSON.stringify(this.state.toDo) === JSON.stringify(nextState.toDo) &&
+  //            JSON.stringify(this.state.done) === JSON.stringify(nextState.done))
+  // }
 
-  render(){
   return (
   <>
     <form className='to-do'>
       <h1 className='to-do-header'><span>TO-DO-LIST</span></h1>
-      <input type="text" onChange={this.onChange} className='myInput' value={this.state.inputValue} />
-      <button  onClick={this.addTask} type='submit' className='mybtn'>Add</button>
+      <input type="text" onChange={onChange} className='myInput' value={inputValue} />
+      <button  onClick={addTask} type='submit' className='mybtn'>Add</button>
       </form>
 
-      {this.state.toDo.map((topic) => {
+      {toDo.map((topic) => {
         return(
         <div key = {topic.id} className='topics_raw'>
           <p>ID: {topic.id}</p>
           <p>Task: {topic.value}</p>
-          <button onClick={() => this.removeTask(topic.id)} type='submit' className='removebtn'>Remove Task</button>
-          <button onClick={() => this.addToDoneTask(topic.id, topic.value)} type='submit' className='removebtn'>DONE</button>
+          <button onClick={() => removeTask(topic.id)} type='submit' className='removebtn'>Remove Task</button>
+          <button onClick={() => addToDoneTask(topic.id, topic.value)} type='submit' className='removebtn'>DONE</button>
         </div>
         )
       })}
 
     <form className='done'>
       <h1 className='done-header'>DONE</h1>
-      {this.state.done.map((topic) => {
+      {done.map((topic) => {
         return(
         <div key = {topic.id} className='topics_raw2'>
           <p>ID: {topic.id}</p>
           <p>Task: {topic.value}</p>
-          <button onClick={() => this.removeTaskFromDone(topic.id)} type='submit' className='removebtn'>Remove Task</button>
-          <button onClick={() => this.addToToDo(topic.id, topic.value)} type='submit' className='removebtn'>Return to to-do list</button>
+          <button onClick={() => removeTaskFromDone(topic.id)} type='submit' className='removebtn'>Remove Task</button>
+          <button onClick={() => addToToDo(topic.id, topic.value)} type='submit' className='removebtn'>Return to to-do list</button>
         </div>
         )
       })}
       </form>
   </>
   )
-  }
 }
 
 export default ToDo_raw;
